@@ -71,22 +71,21 @@
             gap: 12px;
         }
         
-        .logo-img {
-            width: 50px;
-            height: 50px;
-            border-radius: 8px;
+        .logo-img-container {
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
-            border: 2px solid var(--border-color);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: visible; /* 改为visible以显示非矩形边框 */
         }
         
-        .logo-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .logo-img-container img {
+            width: 60px; /* 调整为您的Logo实际宽度 */
+            height: 50px; /* 调整为您的Logo实际高度 */
+            object-fit: contain; /* 完整显示图片 */
+            background-color: transparent; /* 透明背景 */
+            border-radius: 6px; /* 与容器边框保持一致 */
+            border: 2px solid var(--border-color); /* 直接给图片添加边框 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         
         .logo-text {
@@ -254,6 +253,61 @@
             color: #555;
         }
         
+        /* 公告栏样式 */
+        .announcements {
+            margin-bottom: 80px;
+        }
+        
+        .announcements-container {
+            background-color: var(--card-color);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .announcement-item {
+            margin-bottom: 40px; /* 每个公告之间空出2行 */
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .announcement-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .announcement-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* 移除公告标题中的emoji样式 */
+        .announcement-title i {
+            display: none; /* 隐藏emoji图标 */
+        }
+        
+        .announcement-meta {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        .announcement-content {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.7;
+        }
+        
         /* 代表作品 */
         .latest-videos {
             margin-bottom: 80px;
@@ -302,25 +356,23 @@
         
         .video-thumbnail {
             height: 180px;
-            background: linear-gradient(135deg, #1a6aa9, #3c44aa);
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
+            background-color: #f5f5f5; /* 添加备用背景色 */
         }
         
-        .video-thumbnail:after {
-            content: "▶";
-            position: absolute;
-            font-size: 3rem;
-            color: rgba(255, 255, 255, 0.9);
-            background-color: rgba(0, 0, 0, 0.3);
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .video-card:hover .video-thumbnail img {
+            transform: scale(1.05);
         }
         
         .video-info {
@@ -368,13 +420,32 @@
         }
         
         .social-links a {
-            color: var(--dark-color);
-            font-size: 1.5rem;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: rgba(26, 106, 169, 0.1);
+            color: var(--primary-color); /* 统一颜色为主色调 */
+            overflow: hidden;
         }
         
         .social-links a:hover {
-            color: var(--primary-color);
+            transform: translateY(-5px);
+            background-color: rgba(26, 106, 169, 0.2);
+        }
+        
+        /* 社交媒体图标样式 */
+        .social-icon {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+        }
+        
+        .social-links a i {
+            font-size: 1.8rem;
         }
         
         .copyright {
@@ -443,6 +514,12 @@
             .hero p {
                 font-size: 1.1rem;
             }
+            
+            /* 调整Logo大小以适应移动端 */
+            .logo-img-container img {
+                width: 55px;
+                height: 46px;
+            }
         }
         
         @media (max-width: 576px) {
@@ -459,7 +536,7 @@
                 font-size: 1rem;
             }
             
-            .intro-card, .video-card {
+            .intro-card, .video-card, .announcements-container {
                 padding: 20px;
             }
             
@@ -470,6 +547,30 @@
             .footer-content {
                 flex-direction: column;
                 text-align: center;
+            }
+            
+            /* 进一步调整Logo大小 */
+            .logo-img-container img {
+                width: 50px;
+                height: 42px;
+            }
+            
+            .logo-text {
+                font-size: 24px;
+            }
+            
+            .social-links a {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .social-icon {
+                width: 24px;
+                height: 24px;
+            }
+            
+            .social-links a i {
+                font-size: 1.6rem;
             }
         }
         
@@ -500,6 +601,25 @@
         .delay-3 {
             animation-delay: 0.6s;
         }
+        
+        /* 滚动条样式 */
+        .announcements-container::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .announcements-container::-webkit-scrollbar-track {
+            background: #e8f1ff;
+            border-radius: 10px;
+        }
+        
+        .announcements-container::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 10px;
+        }
+        
+        .announcements-container::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-color);
+        }
     </style>
 </head>
 <body>
@@ -508,9 +628,9 @@
         <div class="container">
             <nav>
                 <div class="logo">
-                    <div class="logo-img">
-                        <!-- 这里使用您提供的"北境标.jpeg"图片 -->
-                        <img src="北境标.jpeg" alt="北境团队Logo">
+                    <div class="logo-img-container">
+                        <!-- 使用您的非正方形Logo图片 -->
+                        <img src="北境标.jpeg" alt="北境团队Logo" onerror="handleLogoError(this)">
                     </div>
                     <div class="logo-text">北境团队</div>
                 </div>
@@ -520,7 +640,7 @@
                     <li><a href="#"><i class="fas fa-video"></i> 视频库</a></li>
                     <li><a href="#"><i class="fas fa-users"></i> 成员介绍</a></li>
                     <li><a href="#"><i class="fas fa-calendar-alt"></i> 活动日程</a></li>
-                    <li><a href="#"><i class="fas fa-envelope"></i> 加入我们</a></li>
+                    <li><a href="https://www.tgc.qzz.io/join/" target="_blank"><i class="fas fa-envelope"></i> 加入我们</a></li>
                 </ul>
                 
                 <div class="hamburger" id="hamburger">
@@ -558,13 +678,69 @@
                 </div>
             </section>
             
+            <!-- 公告栏 -->
+            <section class="announcements fade-in">
+                <h2 class="section-title">团队公告</h2>
+                
+                <div class="announcements-container">
+                    <div class="announcement-item">
+                        <h3 class="announcement-title">新系列视频即将上线</h3>
+                        <div class="announcement-meta">
+                            <span><i class="fas fa-user"></i> 发布者: 北境队长</span>
+                            <span><i class="far fa-clock"></i> 时间: 2023-11-15</span>
+                        </div>
+                        <div class="announcement-content">
+                            <p>我们即将推出全新的《我的世界》模组探索系列视频！第一期将深入介绍最近非常热门的"冰与火之歌"模组，展示龙的驯养、龙穴探索和史诗级BOSS战。敬请期待！</p>
+                        </div>
+                    </div>
+                    
+                    <div class="announcement-item">
+                        <h3 class="announcement-title">团队成员招募中</h3>
+                        <div class="announcement-meta">
+                            <span><i class="fas fa-user"></i> 发布者: 北境管理组</span>
+                            <span><i class="far fa-clock"></i> 时间: 2023-11-10</span>
+                        </div>
+                        <div class="announcement-content">
+                            <p>北境团队正在招募新的内容创作者！如果你擅长《我的世界》建筑、红石工程、视频剪辑或直播主持，欢迎加入我们。我们提供专业的设备支持和内容指导，一起创造更多精彩！</p>
+                        </div>
+                    </div>
+                    
+                    <div class="announcement-item">
+                        <h3 class="announcement-title">圣诞特别活动预告</h3>
+                        <div class="announcement-meta">
+                            <span><i class="fas fa-user"></i> 发布者: 北境活动部</span>
+                            <span><i class="far fa-clock"></i> 时间: 2023-11-05</span>
+                        </div>
+                        <div class="announcement-content">
+                            <p>为了庆祝即将到来的圣诞节，北境团队将举办一场特别的《我的世界》建筑大赛！主题是"冰雪奇缘"，参赛者需要建造一个以冰雪为主题的建筑。获奖者将获得团队限定周边和特别奖励！活动详情将于下周公布。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="announcement-item">
+                        <h3 class="announcement-title">团队达成3000订阅里程碑</h3>
+                        <div class="announcement-meta">
+                            <span><i class="fas fa-user"></i> 发布者: 北境全体成员</span>
+                            <span><i class="far fa-clock"></i> 时间: 2023-10-28</span>
+                        </div>
+                        <div class="announcement-content">
+                            <p>感谢所有粉丝的支持！北境团队在各大平台的总订阅数已经突破3000大关！为了回馈大家的支持，我们将在本周末进行特别直播，与粉丝互动并抽取幸运观众送出《我的世界》正版账号和团队限定周边！</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 这里可以继续添加更多公告 -->
+                </div>
+            </section>
+            
             <!-- 代表作品 -->
             <section class="latest-videos">
                 <h2 class="section-title">代表作品</h2>
                 
                 <div class="video-grid">
                     <div class="video-card fade-in">
-                        <div class="video-thumbnail"></div>
+                        <div class="video-thumbnail">
+                            <!-- 视频1缩略图 - 可替换为实际图片 -->
+                            <img src="https://via.placeholder.com/589x1186/1a6aa9/ffffff?text=冰封王国建筑史诗" alt="冰封王国建筑史诗">
+                        </div>
                         <div class="video-info">
                             <h3 class="video-title">冰封王国建筑史诗 - 第5集</h3>
                             <p>北境团队耗时三个月打造的冰原史诗建筑，本期展示中央城堡的完工过程。</p>
@@ -576,7 +752,10 @@
                     </div>
                     
                     <div class="video-card fade-in delay-1">
-                        <div class="video-thumbnail"></div>
+                        <div class="video-thumbnail">
+                            <!-- 视频2缩略图 - 可替换为实际图片 -->
+                            <img src="https://via.placeholder.com/589x1186/3c44aa/ffffff?text=生存挑战：极限模式100天" alt="生存挑战：极限模式100天">
+                        </div>
                         <div class="video-info">
                             <h3 class="video-title">生存挑战：极限模式100天</h3>
                             <p>在极限难度下生存100天，建造自动化农场和防御系统，对抗夜晚的怪物潮。</p>
@@ -588,7 +767,10 @@
                     </div>
                     
                     <div class="video-card fade-in delay-2">
-                        <div class="video-thumbnail"></div>
+                        <div class="video-thumbnail">
+                            <!-- 视频3缩略图 - 可替换为实际图片 -->
+                            <img src="https://via.placeholder.com/589x1186/3bb3e4/ffffff?text=红石科技：全自动分类仓库" alt="红石科技：全自动分类仓库">
+                        </div>
                         <div class="video-info">
                             <h3 class="video-title">红石科技：全自动分类仓库</h3>
                             <p>利用红石技术建造一个可以自动分类存储64种不同物品的全自动化仓库系统。</p>
@@ -610,11 +792,26 @@
                 <div class="footer-logo">北境团队</div>
                 
                 <div class="social-links">
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                    <a href="#"><i class="fab fa-bilibili"></i></a>
-                    <a href="#"><i class="fab fa-weibo"></i></a>
-                    <a href="#"><i class="fab fa-discord"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <!-- 小红书 -->
+                    <a href="https://www.xiaohongshu.com" target="_blank" title="小红书">
+                        <img src="小红书.jpg" alt="小红书" class="social-icon" onerror="handleSocialIconError(this, '小红书')">
+                    </a>
+                    <!-- 哔哩哔哩 -->
+                    <a href="https://www.bilibili.com" target="_blank" title="哔哩哔哩">
+                        <i class="fab fa-bilibili"></i>
+                    </a>
+                    <!-- YouTube -->
+                    <a href="https://www.youtube.com" target="_blank" title="YouTube">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <!-- QQ -->
+                    <a href="https://im.qq.com" target="_blank" title="QQ">
+                        <i class="fab fa-qq"></i>
+                    </a>
+                    <!-- 微博 -->
+                    <a href="https://weibo.com" target="_blank" title="微博">
+                        <i class="fab fa-weibo"></i>
+                    </a>
                 </div>
                 
                 <div class="copyright">
@@ -625,6 +822,51 @@
     </footer>
 
     <script>
+        // Logo图片错误处理
+        function handleLogoError(img) {
+            console.log('Logo图片加载失败，使用备用样式');
+            img.style.display = 'none';
+            const logoDiv = img.parentElement;
+            logoDiv.style.background = 'linear-gradient(135deg, #1a6aa9, #3bb3e4)';
+            logoDiv.style.display = 'flex';
+            logoDiv.style.alignItems = 'center';
+            logoDiv.style.justifyContent = 'center';
+            logoDiv.style.color = 'white';
+            logoDiv.style.fontWeight = 'bold';
+            logoDiv.style.fontSize = '18px';
+            logoDiv.textContent = '北境';
+        }
+        
+        // 社交媒体图标错误处理
+        function handleSocialIconError(img, platform) {
+            console.log(platform + '图标加载失败，使用备用图标');
+            img.style.display = 'none';
+            const link = img.parentElement;
+            
+            // 创建备用图标
+            const backupIcon = document.createElement('i');
+            
+            // 根据平台设置不同的图标
+            if (platform === '小红书') {
+                backupIcon.className = 'fab fa-weixin';
+                backupIcon.style.fontSize = '1.8rem';
+            } else if (platform === '哔哩哔哩') {
+                backupIcon.className = 'fab fa-bilibili';
+                backupIcon.style.fontSize = '1.8rem';
+            } else if (platform === 'YouTube') {
+                backupIcon.className = 'fab fa-youtube';
+                backupIcon.style.fontSize = '1.8rem';
+            } else if (platform === 'QQ') {
+                backupIcon.className = 'fab fa-qq';
+                backupIcon.style.fontSize = '1.8rem';
+            } else if (platform === '微博') {
+                backupIcon.className = 'fab fa-weibo';
+                backupIcon.style.fontSize = '1.8rem';
+            }
+            
+            link.appendChild(backupIcon);
+        }
+        
         // 移动端菜单切换
         const hamburger = document.getElementById('hamburger');
         const navLinks = document.querySelector('.nav-links');
@@ -666,6 +908,11 @@
             // 为导航链接添加点击效果
             document.querySelectorAll('.nav-links a').forEach(link => {
                 link.addEventListener('click', function(e) {
+                    // 如果是"加入我们"链接，不添加active类
+                    if (this.getAttribute('href') === 'https://www.tgc.qzz.io/join/') {
+                        return;
+                    }
+                    
                     // 移除所有active类
                     document.querySelectorAll('.nav-links a').forEach(item => {
                         item.classList.remove('active');
@@ -683,31 +930,40 @@
                 });
             });
             
-            // 处理图片加载失败的情况
-            const logoImg = document.querySelector('.logo-img img');
+            // 动态更新视频缩略图（示例）
+            // 在实际使用中，您可以将这些URL替换为实际的图片路径
+            const videoThumbnails = document.querySelectorAll('.video-thumbnail img');
+            const thumbnailSources = [
+                '视频1缩略图.jpg', // 替换为实际图片路径
+                '视频2缩略图.jpg', // 替换为实际图片路径
+                '视频3缩略图.jpg'  // 替换为实际图片路径
+            ];
+            
+            // 如果有实际图片，则替换占位符
+            thumbnailSources.forEach((src, index) => {
+                if (index < videoThumbnails.length) {
+                    // 在实际使用中，您可以取消注释下面的代码来加载实际图片
+                    // const testImg = new Image();
+                    // testImg.src = src;
+                    // testImg.onload = function() {
+                    //     videoThumbnails[index].src = src;
+                    // };
+                }
+            });
+            
+            // 动态调整Logo边框大小以匹配图片
+            const logoImg = document.querySelector('.logo-img-container img');
             if (logoImg) {
-                logoImg.onerror = function() {
-                    console.log('Logo图片加载失败，使用备用样式');
-                    this.style.display = 'none';
-                    const logoDiv = this.parentElement;
-                    logoDiv.style.background = 'linear-gradient(135deg, #1a6aa9, #3bb3e4)';
-                    logoDiv.style.position = 'relative';
-                    logoDiv.style.overflow = 'hidden';
-                    
-                    const beforeElement = document.createElement('div');
-                    beforeElement.style.cssText = `
-                        content: "";
-                        position: absolute;
-                        width: 100%;
-                        height: 100%;
-                        background-image: 
-                            linear-gradient(90deg, transparent 45%, rgba(255,255,255,0.2) 50%, transparent 55%),
-                            linear-gradient(0deg, transparent 45%, rgba(255,255,255,0.2) 50%, transparent 55%);
-                        background-size: 10px 10px;
-                    `;
-                    logoDiv.appendChild(beforeElement);
+                logoImg.onload = function() {
+                    // 边框已经直接应用在图片上，所以会自动匹配图片大小
+                    console.log('Logo图片加载成功，边框大小已自动匹配');
                 };
             }
+            
+            // 移除公告标题中的emoji图标
+            document.querySelectorAll('.announcement-title i').forEach(icon => {
+                icon.style.display = 'none';
+            });
         });
     </script>
 </body>
